@@ -2,16 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import addPractice from "./server/Examination";//а в Examination.js написати export default addPractice();
+//import express from "express"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+// const app = express()
+// app.listen(8800, ()=>{
+//     console.log("Connected to backend");
+// })
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// app.get("/", (req,res)=>{
+//     res.json("hello");
+// })
+
+// app.get("/Examination", (req,res)=>{//для отримання екзаменів
+// let e2=findAllExaminations();
+// e2.then(function(result) {
+//     console.log(result)
+// }).then();
+// })
+
+// app.post("/Examination", (req,res)=>{//для створення екзаменів
+//addPractice(2, true);
+// })
+
+const root = ReactDOM.createRoot(document.getElementById('root'));//цей root знаходться в index.html
+root.render(<App />);//вставляємо App в root
+
