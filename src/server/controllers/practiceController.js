@@ -1,49 +1,43 @@
 const {Practice} = require("../DBModeles/models");
 
 class PracticeController{
-    async addPractice(req, res, examination_id, is_passed, used_attempts, left_attempts){
-        //приклад додання (можна й всі 4 параметри):
-        //addPractice(2, true);
-        Practice.sync({force: false}).then(() => {
-            return Practice.create({examination_id: examination_id,
-                is_passed: is_passed,
-                used_attempts: used_attempts,
-                left_attempts: left_attempts});
+    async addPractice(req, res){
+        //можна й всі 4 параметри
+        const {examination_id, is_passed, used_attempts, left_attempts}=req.body
+        const query = await Practice.create({examination_id: examination_id,
+            is_passed: is_passed,
+            used_attempts: used_attempts,
+            left_attempts: left_attempts
         });
+        return res.json(query)
     }
 
 
-    async findPractice(req, res, practice_id){
-        //приклад:
-        // pr = findPractice(2).then(pr=>console.log(pr))
-        return Practice.findOne({
+    async findPractice(req, res){
+        const {id} = req.params
+        const query = await Practice.findOne({
             where:{
-                id:practice_id
+                id:id
             },
         })
+        return res.json(query)
     }
 
 
-    async deletePractice(req, res, practice_id){//не тестував, але повинно працювати
-        //приклад
-        //deletePractice(44);
-        Practice.sync({force: false}).then(() => {
-            Practice.destroy({
-                where: {
-                    id: practice_id
-                },
-            })
-        });
+    async deletePractice(req, res){//не тестував, але повинно працювати
+        const {id} = req.params
+        const query = await Practice.destroy({
+            where: {
+                id: id
+            },
+        })
+        return res.json(query)
     }
 
 
     async findAllPractices(req, res) {
-        // приклад:
-        // let p2=findAllPractices();
-        // p2.then(function(result) {
-        //     console.log(result)
-        // });
-        return Practice.findAll();
+        const query = await Practice.findAll();
+        return res.json(query)
     }
 }
 

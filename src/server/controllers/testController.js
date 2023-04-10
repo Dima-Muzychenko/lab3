@@ -1,53 +1,44 @@
 const {Test} = require("../DBModeles/models");
 
 class TestController{
-    async addTest(req, res, examination_id, is_passed, used_attempts){
-        //приклад додання (можна й всі 3 параметри):
-        //addTest(2, true);
-        Test.sync({force: false}).then(() => {
-            return Test.create({examination_id: examination_id,
-                is_passed: is_passed,
-                used_attempts: used_attempts});
-        });
+    async addTest(req, res){
+        //можна й всі 3 параметри
+        const {examination_id, is_passed, used_attempts} = req.body
+        const query = await Test.create({examination_id: examination_id,
+            is_passed: is_passed,
+            used_attempts: used_attempts
+        })
+        return res.json(query)
     }
 
 
 
-    async findTest(req, res, test_id){
-        //приклад:
-        // ts = findTest(1).then(ts=>console.log(ts))
-        return Test.findOne({
+    async findTest(req, res){
+        const {id} = req.params
+        const query = await Test.findOne({
             where:{
-                id:test_id
+                id:id
             },
         })
+        return res.json(query)
     }
 
 
 
-    async deleteTest(req, res, test_id){//не тестував, але повинно працювати
-        //приклад
-        //deleteTest(44);
-        Test.sync({force: false}).then(() => {
-            Test.destroy({
-                where: {
-                    id: test_id
-                },
-            })
-        });
+    async deleteTest(req, res){//не тестував, але повинно працювати
+        const {id} = req.params
+        const query = await Test.destroy({
+            where: {
+                id: id
+            },
+        })
+        return res.json(query)
     }
-
-
-//export default findExamination();
 
 
     async findAllTests(req, res){
-        // приклад
-        // let t2=findAllTests();
-        // t2.then(function(result) {
-        //     console.log(result)
-        // });
-        return Test.findAll();
+        const query = await Test.findAll();
+        return res.json(query)
     }
 }
 

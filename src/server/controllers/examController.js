@@ -11,11 +11,11 @@ class ExamController{
     //http://localhost:5000/api/examination/12/Pdfsdd
     async addExamination(req, res){
         const {passport_id, mia_id, passed_category, is_passed} = req.body
-        const type = await Examination.create({passport_id: passport_id,
+        const query = await Examination.create({passport_id: passport_id,
                      mia_id: mia_id,
                      passed_category: passed_category,
                      is_passed: is_passed});
-        return res.json(type)
+        return res.json(query)
     }
 
     async findExamination(req, res){
